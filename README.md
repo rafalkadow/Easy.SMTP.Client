@@ -1,7 +1,7 @@
 # Easy.SMTP.Client
 Easy smtp client to test email sending.
 
-##Screenshots
+## Screenshots
 <div align="center">
 
 <img alt="screenshot01" src="./docs/easy.smpt.client.png">

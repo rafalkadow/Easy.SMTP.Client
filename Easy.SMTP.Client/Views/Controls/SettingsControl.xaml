@@ -1,0 +1,146 @@
+﻿<UserControl x:Class="Easy.SMTP.Client.Views.Controls.SettingsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Easy.SMTP.Client.Views.Controls"
+             xmlns:ViewModels="clr-namespace:Easy.SMTP.Client.ViewModels.Modules"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"             
+             xmlns:ps="clr-namespace:Easy.SMTP.Utilities"
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="800" d:DataContext="{d:DesignInstance ViewModels:SettingsViewModel}">
+
+
+    <Grid Grid.Row="0">
+
+        <GroupBox Margin="8">
+            <GroupBox.Header>
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                            Padding="5" FontSize="20" Foreground="Black" Content="Settings" FontFamily="Aharoni" />
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" >
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Margin" Value="5"/>
+                                <Setter Property="Padding" Value="9 5"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsEnabled" Value="True">
+                                        <Setter Property="Foreground" Value="White"></Setter>
+                                        <Setter Property="Background" Value="#EF4A2F64"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Foreground" Value="Gray"></Setter>
+                                        <Setter Property="Background" Value="#0F4A2F64"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Foreground" Value="White"></Setter>
+                                        <Setter Property="Background" Value="#EF4A2F64"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter Property="Foreground" Value="White"></Setter>
+                                        <Setter Property="Background" Value="#EF4A2F64"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Resources>
+                        <Button Content="Save Settings" Command="{Binding SaveSettingsCommand}"  />
+                    </StackPanel>
+
+                </Grid>
+            </GroupBox.Header>
+
+
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MetroLabel}">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MetroTextBox}">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="0 10 20 0"/>
+                        <Setter Property="TextAlignment" Value="Left"/>
+                    </Style>
+                    <Style TargetType="{x:Type PasswordBox}">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="0 10 20 10"/>
+                        <Setter Property="Padding" Value="5"/>
+                    </Style>
+
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--SMTP Host-->
+                <Label Content="SMTP Host: " Grid.Row="0"/>
+                <TextBox Controls:TextBoxHelper.ClearTextButton="True"
+                     Controls:TextBoxHelper.Watermark="Enter smtp host"
+                     Grid.Column="1" 
+                     Grid.Row="0" 
+                     Text="{Binding MainViewModel.SettingsViewModelElement.SettingsModelObject.SmtpClientModelObject.HostSmtp,
+                                    UpdateSourceTrigger=PropertyChanged,
+                                    ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}"/>
+
+                <!--SMTP UserName-->
+                <Label Content="SMTP username: " Grid.Row="1"/>
+                <TextBox Controls:TextBoxHelper.ClearTextButton="True"
+                     Controls:TextBoxHelper.Watermark="Enter to email"
+                     Grid.Row="1" 
+                     Grid.Column="1" 
+                     Text="{Binding MainViewModel.SettingsViewModelElement.SettingsModelObject.SmtpClientModelObject.UserNameSmtp,
+                                    UpdateSourceTrigger=PropertyChanged,
+                                    ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}"/>
+
+                <!--SMTP Password-->
+                <Label Content="SMTP password: " Grid.Row="3" />
+                <PasswordBox x:Name="PasswordBox" Controls:TextBoxHelper.ClearTextButton="True"
+                     Controls:TextBoxHelper.Watermark="Enter smtp password "
+                     Grid.Row="3" 
+                     Grid.Column="1" 
+                     ps:PasswordBoxAssistant.BindPassword="true"  
+                     ps:PasswordBoxAssistant.BoundPassword="{Binding Path=MainViewModel.SettingsViewModelElement.SettingsModelObject.SmtpClientModelObject.PasswordSmtp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+
+
+                <!--SMTP Port-->
+                <Label Content="SMTP Port: " Grid.Row="4"  />
+                <Controls:NumericUpDown
+                     Controls:TextBoxHelper.Watermark="Enter smtp port"
+                     Margin="0 0 20 0"
+                     Grid.Row="4" 
+                     Grid.Column="1" 
+                     Value="{Binding MainViewModel.SettingsViewModelElement.SettingsModelObject.SmtpClientModelObject.PortSmtp,
+                                    UpdateSourceTrigger=PropertyChanged,
+                                    ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}"/>
+                <!--SSL Enabled-->
+                <Label Content="SSL Enabled: " Grid.Row="5" />
+                <CheckBox Controls:TextBoxHelper.ClearTextButton="True"
+                     Grid.Row="5" 
+                     Grid.Column="1" 
+                     IsChecked="{Binding MainViewModel.SettingsViewModelElement.SettingsModelObject.SmtpClientModelObject.EnableSslSmtp,
+                                    UpdateSourceTrigger=PropertyChanged,
+                                    ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}"/>
+
+            </Grid>
+
+        </GroupBox>
+    </Grid>
+</UserControl>

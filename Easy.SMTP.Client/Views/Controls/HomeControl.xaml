@@ -1,0 +1,135 @@
+﻿<UserControl x:Class="Easy.SMTP.Client.Views.Controls.HomeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:ViewModels="clr-namespace:Easy.SMTP.Client.ViewModels.Modules"
+             xmlns:viewmodels="clr-namespace:Easy.SMTP.Client.ViewModels"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="900" x:Name="HomeControlElement" d:DataContext="{d:DesignInstance ViewModels:HomeViewModel}">
+
+    <Grid Grid.Row="1">
+
+
+        <GroupBox Margin="8">
+            <GroupBox.Header>
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                            Padding="5" FontSize="20" Foreground="Black" Content="Message" FontFamily="Calibri" />
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" >
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Margin" Value="5"/>
+                                <Setter Property="Padding" Value="9 5"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsEnabled" Value="True">
+                                        <Setter Property="Foreground" Value="White"></Setter>
+                                        <Setter Property="Background" Value="#EF4A2F64"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Foreground" Value="Gray"></Setter>
+                                        <Setter Property="Background" Value="#0F4A2F64"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Foreground" Value="White"></Setter>
+                                        <Setter Property="Background" Value="#EF4A2F64"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter Property="Foreground" Value="White"></Setter>
+                                        <Setter Property="Background" Value="#EF4A2F64"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Resources>
+                        <Button Content="Save message" Command="{Binding SaveMessageCommand}" />
+                    </StackPanel>
+
+                </Grid>
+            </GroupBox.Header>
+ 
+   
+
+    <Grid>
+
+        <Grid.Resources>
+            <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MetroLabel}">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MetroTextBox}">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="0 0 20 0"/>
+                <Setter Property="TextAlignment" Value="Left"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--From email-->
+        <Label Content="From : " Grid.Row="0" Margin="10" />
+        <TextBox Controls:TextBoxHelper.ClearTextButton="True"
+                     Controls:TextBoxHelper.Watermark="Enter from email"
+                     Grid.Column="1" 
+                     Grid.Row="0" 
+                     Text="{Binding MainViewModel.SettingsViewModelElement.SettingsModelObject.MailMessageModelObject.FromMailAddress,
+                                    UpdateSourceTrigger=PropertyChanged,
+                                    ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}"/>
+
+        <!--To email-->
+        <Label Content="To : " Grid.Row="1"  Margin="10" />
+        <TextBox Controls:TextBoxHelper.ClearTextButton="True"
+                     Controls:TextBoxHelper.Watermark="Enter to email"
+                     Grid.Row="1" 
+                     Grid.Column="1" 
+                     Text="{Binding MainViewModel.SettingsViewModelElement.SettingsModelObject.MailMessageModelObject.ToMailAddress,
+                                    UpdateSourceTrigger=PropertyChanged,
+                                    ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}"/>
+
+        <!--Subject-->
+        <Label Content="Subject: " Grid.Row="3"  Margin="10" />
+        <TextBox Controls:TextBoxHelper.ClearTextButton="True"
+                     Controls:TextBoxHelper.Watermark="Enter subject"
+                     Grid.Row="3" 
+                     Grid.Column="1" 
+                     Text="{Binding MainViewModel.SettingsViewModelElement.SettingsModelObject.MailMessageModelObject.SubjectMessage,
+                                    UpdateSourceTrigger=PropertyChanged,
+                                    ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}"/>
+
+        <!--Body message-->
+        <Label Content="Body message: " Grid.Row="4"  Margin="10" />
+        <TextBox Controls:TextBoxHelper.ClearTextButton="True"
+                     Controls:TextBoxHelper.Watermark="Enter body message"
+                     TextWrapping="Wrap"
+                     AcceptsReturn="True"
+                     AcceptsTab="True"
+                     Height="150" 
+                     Grid.Row="4" 
+                     Grid.Column="1" 
+                     Text="{Binding MainViewModel.SettingsViewModelElement.SettingsModelObject.MailMessageModelObject.BodyMessage,
+                                    UpdateSourceTrigger=PropertyChanged,
+                                    ValidatesOnNotifyDataErrors=True, ValidatesOnDataErrors=True}"/>
+        
+
+    </Grid>
+        </GroupBox>
+
+    </Grid>
+</UserControl>

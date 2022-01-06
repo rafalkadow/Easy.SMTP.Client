@@ -1,5 +1,5 @@
 # Easy.SMTP.Client
-A sample WPF application - Easy smtp client to test email sending.
+Sample WPF application - Easy smtp client to test sending email.
 
 ## Screenshots
 <div align="center">

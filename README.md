@@ -20,3 +20,7 @@ https://www.google.com/settings/security/lesssecureapps
 
 https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2017InstallerProjects
 
+OR
+
+# Microsoft Visual Studio Installer Projects Visual Studio 2022
+https://marketplace.visualstudio.com/items?itemName=VisualStudioClient.MicrosoftVisualStudio2022InstallerProjects

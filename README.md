@@ -13,6 +13,7 @@ Sample WPF application - Easy smtp client to test sending email.
 <img alt="screenshot01" src="./docs/easy.smpt.client_2.png" width="700" height="700">
 
 </div>
+
 Example settings for Gmail SMTP Server
 * Enter the following information in the SMTP account settings of your mail client:
 * Server: smtp.gmail.com

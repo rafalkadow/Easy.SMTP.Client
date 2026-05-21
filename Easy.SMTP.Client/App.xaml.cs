@@ -1,6 +1,6 @@
-﻿using Easy.SMTP.Client.ViewModels;
+using Easy.SMTP.Client.ViewModels;
 using Easy.SMTP.Client.Views;
-using Easy.SMTP.Enums;
+using Easy.SMTP.Client.Enums;
 using NLog;
 using System;
 using System.ComponentModel;

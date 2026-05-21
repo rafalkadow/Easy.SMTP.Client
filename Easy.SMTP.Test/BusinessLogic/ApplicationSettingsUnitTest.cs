@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Easy.SMTP.BusinessLogic;
-using Easy.SMTP.Models;
+using Easy.SMTP.Client.BusinessLogic;
+using Easy.SMTP.Client.Models;
 using Easy.SMTP.Client.Utilities;
 
 namespace Easy.SMTP.Test.BusinessLogic
@@ -51,8 +51,8 @@ namespace Easy.SMTP.Test.BusinessLogic
         public void ApplicationEncrypterDecryptTestMethod()
         {
             string message = "test";
-            string resultEncrypt = ApplicationEncrypterDecrypt.Encrypt(message);
-            string resultDescrypt = ApplicationEncrypterDecrypt.Decrypt(resultEncrypt);
+            string resultEncrypt = ApplicationEncryptedDecrypt.Encrypt(message);
+            string resultDescrypt = ApplicationEncryptedDecrypt.Decrypt(resultEncrypt);
             Assert.IsNotNull(resultDescrypt);
             Assert.IsTrue(resultDescrypt.Equals(message));
         }

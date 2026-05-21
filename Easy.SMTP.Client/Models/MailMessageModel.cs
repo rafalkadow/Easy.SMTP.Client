@@ -1,12 +1,7 @@
-﻿using Easy.SMTP.Core;
+using Easy.SMTP.Client.Core;
 using NLog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Easy.SMTP.Models
+namespace Easy.SMTP.Client.Models
 {
     public class MailMessageModel : PropertyChangedBase
     {

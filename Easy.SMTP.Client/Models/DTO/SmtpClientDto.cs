@@ -1,9 +1,5 @@
 ﻿using NLog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace Easy.SMTP.Client.Models.DTO
@@ -41,7 +37,6 @@ namespace Easy.SMTP.Client.Models.DTO
         {
             get; set;
         }
-
 
         #region ToString
         public override string ToString()

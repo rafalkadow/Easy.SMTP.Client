@@ -1,13 +1,11 @@
-﻿using Easy.SMTP.Client.Models.DTO;
-using Easy.SMTP.Client.Utilities;
-using Easy.SMTP.Models;
+using Easy.SMTP.Client.Models.DTO;
+using Easy.SMTP.Client.Models;
 using Newtonsoft.Json;
 using NLog;
 using System;
 using System.IO;
-using System.Xml.Serialization;
 
-namespace Easy.SMTP.BusinessLogic
+namespace Easy.SMTP.Client.BusinessLogic
 {
     public class ApplicationSettingsLogic
     {
@@ -27,8 +25,7 @@ namespace Easy.SMTP.BusinessLogic
             var smtpClientModel = new SmtpClientModel();
             try
             {
-                //XmlSerializer serializer = new XmlSerializer(typeof(SmtpClientModel));
-
+              
                 string basePath = AppDomain.CurrentDomain.BaseDirectory;
                 if(!basePath.EndsWith("\\"))
                 {

@@ -1,10 +1,8 @@
-﻿using Easy.SMTP.Client.Models.DTO;
+using Easy.SMTP.Client.Models.DTO;
 using Easy.SMTP.Client.Utilities;
-using Easy.SMTP.Core;
-using NLog;
-using System;
+using Easy.SMTP.Client.Core;
 
-namespace Easy.SMTP.Models
+namespace Easy.SMTP.Client.Models
 {
     public class SmtpClientModel : PropertyChangedBase
     {
@@ -104,7 +102,7 @@ namespace Easy.SMTP.Models
             {
                 HostSmtp = HostSmtp,
                 UserNameSmtp = UserNameSmtp,
-                PasswordSmtp = ApplicationEncrypterDecrypt.Encrypt(PasswordSmtp),
+                PasswordSmtp = ApplicationEncryptedDecrypt.Encrypt(PasswordSmtp),
                 PortSmtp = PortSmtp,
                 EnableSslSmtp = EnableSslSmtp,
             };
@@ -118,13 +116,12 @@ namespace Easy.SMTP.Models
             {
                 HostSmtp = smtpClientDto.HostSmtp,
                 UserNameSmtp = smtpClientDto.UserNameSmtp,
-                PasswordSmtp = ApplicationEncrypterDecrypt.Decrypt(smtpClientDto.PasswordSmtp),
+                PasswordSmtp = ApplicationEncryptedDecrypt.Decrypt(smtpClientDto.PasswordSmtp),
                 PortSmtp = smtpClientDto.PortSmtp,
                 EnableSslSmtp = smtpClientDto.EnableSslSmtp,
             };
             return returnObject;
         }
-
 
         #region ToString
         public override string ToString()

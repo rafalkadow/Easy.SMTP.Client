@@ -1,20 +1,17 @@
-﻿using Easy.SMTP.BusinessLogic;
+using Easy.SMTP.Client.BusinessLogic;
 using Easy.SMTP.Client.Utilities;
 using Easy.SMTP.Client.ViewModels.Controls;
 using Easy.SMTP.Client.ViewModels.Modules;
 using Easy.SMTP.Client.Views;
-using Easy.SMTP.Core;
-using Easy.SMTP.Models;
-using Easy.SMTP.ViewModels.Controls;
+using Easy.SMTP.Client.Core;
+using Easy.SMTP.Client.Models;
 using MahApps.Metro.Controls.Dialogs;
 using MahApps.Metro.IconPacks;
 using NLog;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Easy.SMTP.Client.ViewModels
 {
@@ -130,11 +127,11 @@ namespace Easy.SMTP.Client.ViewModels
         #region Commands
    
 
-        public RelayCommand SendEmailCommand
+        public ICommand SendEmailCommand
         {
             get
             {
-                return new RelayCommand(_ => OnSendEmailCommandAsync());
+                return new AsyncRelayCommand(_ => OnSendEmailCommandAsync());
             }
         }
 
@@ -162,7 +159,7 @@ namespace Easy.SMTP.Client.ViewModels
                     var responseOperation = sendEmailLogic.SendMessage(SettingsViewModelElement.SettingsModelObject.MailMessageModelObject, SettingsViewModelElement.SettingsModelObject.SmtpClientModelObject);
                     if (responseOperation.OperationStatus)
                     {
-                        string messageOk = $"Email has been sent corectly.";
+                        string messageOk = $"Email has been sent correctly.";
                         await dialogCoordinator.ShowMessageAsync(this, TitleApplication, messageOk, MessageDialogStyle.Affirmative, settings);
                         StatusBarItemTitle = DateTimeToStringUtility.AddDateTime(messageOk);
                     }

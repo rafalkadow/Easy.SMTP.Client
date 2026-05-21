@@ -1,8 +1,9 @@
-﻿using Easy.SMTP.BusinessLogic;
+using Easy.SMTP.Client.BusinessLogic;
 using Easy.SMTP.Client.Utilities;
 using Easy.SMTP.Client.ViewModels.Controls;
-using Easy.SMTP.Core;
+using Easy.SMTP.Client.Core;
 using MahApps.Metro.Controls.Dialogs;
+using System.Windows.Input;
 using NLog;
 using System;
 using System.Threading.Tasks;
@@ -17,17 +18,16 @@ namespace Easy.SMTP.Client.ViewModels.Modules
         {
         }
 
-
         #region Commands
-        public RelayCommand SaveSettingsCommand
+        public ICommand SaveSettingsCommand
         {
             get
             {
-                return new RelayCommand(_ => OnSaveSettingsCommandAsync());
+                return new AsyncRelayCommand(_ => OnSaveSettingsCommandAsync());
             }
         }
 
-        public async void OnSaveSettingsCommandAsync()
+        public async Task OnSaveSettingsCommandAsync()
         {
             logger.Info($"OnSaveSettingsCommandAsync()");
 
@@ -51,13 +51,13 @@ namespace Easy.SMTP.Client.ViewModels.Modules
                     var responseOperation = applicationSettingsLogic.SettingsSerializeSaveSMTP(MainViewModel.SettingsViewModelElement.SettingsModelObject.SmtpClientModelObject);
                     if (responseOperation.OperationStatus)
                     {
-                        string messageOk = $"Settings have been saved corectly.";
+                        string messageOk = $"Settings have been saved correctly.";
                         await dialogCoordinator.ShowMessageAsync(this, MainViewModel.TitleApplication, messageOk, MessageDialogStyle.Affirmative, settings);
                         MainViewModel.StatusBarItemTitle = DateTimeToStringUtility.AddDateTime(messageOk);
                     }
                     else
                     {
-                        string messageError = $"Settings have not been saved corectly.";
+                        string messageError = $"Settings have not been saved correctly.";
                         await dialogCoordinator.ShowMessageAsync(this, MainViewModel.TitleApplication, messageError + $"\nError message: {responseOperation.Exception}", MessageDialogStyle.Affirmative, settings);
                         MainViewModel.StatusBarItemTitle = DateTimeToStringUtility.AddDateTime(messageError);
                     }
@@ -72,7 +72,7 @@ namespace Easy.SMTP.Client.ViewModels.Modules
                 {
                     ColorScheme = MetroDialogColorScheme.Accented,
                 };
-                await dialogCoordinator.ShowMessageAsync(this, MainViewModel.TitleApplication, $"Settings have been saved.\nError message: {ex.Message}", MessageDialogStyle.Affirmative, settings);
+                await dialogCoordinator.ShowMessageAsync(this, MainViewModel.TitleApplication, $"Settings have not been saved.\nError message: {ex.Message}", MessageDialogStyle.Affirmative, settings);
             }
         }
 

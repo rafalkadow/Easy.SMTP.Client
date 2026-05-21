@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Easy.SMTP.Client.Utilities
 {
@@ -12,6 +8,5 @@ namespace Easy.SMTP.Client.Utilities
         {
             return string.Format(" {0:yyy/MM/dd HH:mm:ss}", DateTime.Now).ToString() + " " + text;
         }
-            
     }
 }

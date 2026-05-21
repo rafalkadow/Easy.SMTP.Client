@@ -1,9 +1,8 @@
-﻿using Easy.SMTP.Client.ViewModels;
-using Easy.SMTP.Core;
-using Easy.SMTP.Models;
+using Easy.SMTP.Client.Core;
+using Easy.SMTP.Client.Models;
 using NLog;
 
-namespace Easy.SMTP.ViewModels.Controls
+namespace Easy.SMTP.Client.ViewModels.Controls
 {
     public class MessageObjectModel : PropertyChangedBase
     {

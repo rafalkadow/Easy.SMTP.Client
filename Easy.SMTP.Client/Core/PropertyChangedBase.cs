@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
-namespace Easy.SMTP.Core
+namespace Easy.SMTP.Client.Core
 {
     /// <summary>
     /// Base class implementing <see cref="INotifyPropertyChanged"/>.

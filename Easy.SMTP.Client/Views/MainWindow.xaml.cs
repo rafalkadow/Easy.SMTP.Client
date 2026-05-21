@@ -1,5 +1,5 @@
-﻿using Easy.SMTP.Client.ViewModels;
-using Easy.SMTP.Models;
+using Easy.SMTP.Client.ViewModels;
+using Easy.SMTP.Client.Models;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using NLog;

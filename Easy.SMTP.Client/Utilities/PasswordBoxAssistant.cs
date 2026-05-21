@@ -1,7 +1,7 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Controls;
 
-namespace Easy.SMTP.Utilities
+namespace Easy.SMTP.Client.Utilities
 {
     public static class PasswordBoxAssistant
     {

@@ -1,4 +1,4 @@
-﻿<mah:MetroWindow  x:Class="Easy.SMTP.Client.Views.MainWindow"
+<mah:MetroWindow  x:Class="Easy.SMTP.Client.Views.MainWindow"
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:core="clr-namespace:Easy.SMTP.Client.Converters"
@@ -20,6 +20,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -141,10 +142,9 @@
             </mah:HamburgerMenu>
 
         </Grid>
-        <StatusBar Grid.Row="1" VerticalAlignment="Bottom">
-            <StatusBarItem VerticalAlignment="Bottom">
-                <TextBlock Text="{Binding StatusBarItemTitle}">
-                </TextBlock>
+        <StatusBar Grid.Row="2">
+            <StatusBarItem>
+                <TextBlock Text="{Binding StatusBarItemTitle}" />
             </StatusBarItem>
         </StatusBar>
     </Grid>

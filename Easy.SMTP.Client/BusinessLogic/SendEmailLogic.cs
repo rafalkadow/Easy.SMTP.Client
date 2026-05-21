@@ -1,5 +1,4 @@
-﻿using Easy.SMTP.Client.Utilities;
-using Easy.SMTP.Models;
+using Easy.SMTP.Client.Models;
 using NLog;
 using System;
 using System.IO;
@@ -8,7 +7,7 @@ using System.Net.Mail;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Easy.SMTP.BusinessLogic
+namespace Easy.SMTP.Client.BusinessLogic
 {
     public class SendEmailLogic
     {
@@ -25,23 +24,26 @@ namespace Easy.SMTP.BusinessLogic
             ResponseOperation responseOperation = new ResponseOperation();
             try
             {
-                MailMessage message = new MailMessage();
-                
-                message.From = new MailAddress(mailMessageModel.FromMailAddress);
-                message.To.Add(new MailAddress(mailMessageModel.ToMailAddress));
-                message.Subject = mailMessageModel.SubjectMessage;
-                message.IsBodyHtml = true; //to make message body as html  
-                message.Body = mailMessageModel.BodyMessage;
                 ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(RemoteServerCertificateValidationCallback);
-                SmtpClient smtp = new SmtpClient();
-                smtp.Port = smtpClientModel.PortSmtp;
-                smtp.Host = smtpClientModel.HostSmtp; //for gmail host  
-                smtp.EnableSsl = smtpClientModel.EnableSslSmtp;
-                smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new NetworkCredential(smtpClientModel.UserNameSmtp, smtpClientModel.PasswordSmtp);
-                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtp.Timeout = 10000;
-                smtp.Send(message);
+                using (MailMessage message = new MailMessage())
+                {
+                    message.From = new MailAddress(mailMessageModel.FromMailAddress);
+                    message.To.Add(new MailAddress(mailMessageModel.ToMailAddress));
+                    message.Subject = mailMessageModel.SubjectMessage;
+                    message.IsBodyHtml = true; //to make message body as html  
+                    message.Body = mailMessageModel.BodyMessage;
+                    using (SmtpClient smtp = new SmtpClient())
+                    {
+                        smtp.Port = smtpClientModel.PortSmtp;
+                        smtp.Host = smtpClientModel.HostSmtp; //for gmail host  
+                        smtp.EnableSsl = smtpClientModel.EnableSslSmtp;
+                        smtp.UseDefaultCredentials = false;
+                        smtp.Credentials = new NetworkCredential(smtpClientModel.UserNameSmtp, smtpClientModel.PasswordSmtp);
+                        smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                        smtp.Timeout = 10000;
+                        smtp.Send(message);
+                    }
+                }
                 responseOperation.OperationStatus = true;
             }
             catch (Exception ex) {
@@ -60,22 +62,22 @@ namespace Easy.SMTP.BusinessLogic
 
             // if got an cert auth error
             if (sslPolicyErrors != SslPolicyErrors.RemoteCertificateNameMismatch) return false;
-            const string sertFileName = "smpthost.cer";
+            const string certFileName = "smtphost.cer";
 
             // check if cert file exists
-            if (File.Exists(sertFileName))
+            if (File.Exists(certFileName))
             {
-                var actualCertificate = X509Certificate.CreateFromCertFile(sertFileName);
+                var actualCertificate = X509Certificate.CreateFromCertFile(certFileName);
                 return certificate.Equals(actualCertificate);
             }
 
             // export and check if cert not exists
-            using (var file = File.Create(sertFileName))
+            using (var file = File.Create(certFileName))
             {
                 var cert = certificate.Export(X509ContentType.Cert);
                 file.Write(cert, 0, cert.Length);
             }
-            var createdCertificate = X509Certificate.CreateFromCertFile(sertFileName);
+            var createdCertificate = X509Certificate.CreateFromCertFile(certFileName);
             return certificate.Equals(createdCertificate);
         }
 

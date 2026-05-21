@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Easy.SMTP.Core
+namespace Easy.SMTP.Client.Core
 {
     /// <summary>
     /// Extension methods for <see cref="Expression"/>s.

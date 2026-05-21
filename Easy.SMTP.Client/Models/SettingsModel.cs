@@ -1,7 +1,7 @@
-﻿using Easy.SMTP.Core;
+using Easy.SMTP.Client.Core;
 using NLog;
 
-namespace Easy.SMTP.Models
+namespace Easy.SMTP.Client.Models
 {
     public class SettingsModel : PropertyChangedBase
     {
@@ -44,7 +44,6 @@ namespace Easy.SMTP.Models
                 }
             }
         }
-
 
         #region ToString
         public override string ToString()

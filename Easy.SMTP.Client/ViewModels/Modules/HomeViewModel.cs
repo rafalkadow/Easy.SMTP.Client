@@ -1,8 +1,9 @@
-﻿using Easy.SMTP.BusinessLogic;
+using Easy.SMTP.Client.BusinessLogic;
 using Easy.SMTP.Client.Utilities;
 using Easy.SMTP.Client.ViewModels.Controls;
-using Easy.SMTP.Core;
+using Easy.SMTP.Client.Core;
 using MahApps.Metro.Controls.Dialogs;
+using System.Windows.Input;
 using NLog;
 using System;
 using System.Threading.Tasks;
@@ -18,15 +19,15 @@ namespace Easy.SMTP.Client.ViewModels.Modules
 
         #region Commands
 
-        public RelayCommand SaveMessageCommand
+        public ICommand SaveMessageCommand
         {
             get
             {
-                return new RelayCommand(_ => OnSaveMessageCommandAsync());
+                return new AsyncRelayCommand(_ => OnSaveMessageCommandAsync());
             }
         }
 
-        public async void OnSaveMessageCommandAsync()
+        public async Task OnSaveMessageCommandAsync()
         {
             logger.Info($"OnSaveMessageCommandAsync()");
 
@@ -50,7 +51,7 @@ namespace Easy.SMTP.Client.ViewModels.Modules
                     var responseOperation = applicationSettingsLogic.SettingsSerializeSaveMessage(MainViewModel.SettingsViewModelElement.SettingsModelObject.MailMessageModelObject);
                     if (responseOperation.OperationStatus)
                     {
-                        string messageOk = $"Message has been saved corectly.";
+                        string messageOk = $"Message has been saved correctly.";
                         await dialogCoordinator.ShowMessageAsync(this, MainViewModel.TitleApplication, messageOk, MessageDialogStyle.Affirmative, settings);
                         MainViewModel.StatusBarItemTitle = DateTimeToStringUtility.AddDateTime(messageOk);
                     }
@@ -71,7 +72,7 @@ namespace Easy.SMTP.Client.ViewModels.Modules
                 {
                     ColorScheme = MetroDialogColorScheme.Accented,
                 };
-                await dialogCoordinator.ShowMessageAsync(this, MainViewModel.TitleApplication, $"Message has been saved.\nError message: {ex.Message}", MessageDialogStyle.Affirmative, settings);
+                await dialogCoordinator.ShowMessageAsync(this, MainViewModel.TitleApplication, $"Message has not been saved.\nError message: {ex.Message}", MessageDialogStyle.Affirmative, settings);
             }
         }
         #endregion Commands
